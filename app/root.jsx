@@ -1,13 +1,8 @@
-import {
-  Links,
-  Link,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+import { Links, Link, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import styles from "~/tailwind.css";
+import { BsFillBookmarkFill } from "@react-icons/all-files/bs/BsFillBookmarkFill";
+import { AiFillHome } from "@react-icons/all-files/ai/AiFillHome";
+import { FaUser } from "@react-icons/all-files/fa/FaUser";
 
 export const links = () => [
   {
@@ -31,15 +26,28 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-100 text-slate-800 font-sans p-4">
-        <header className="pb-3 mb-4 border-b-2">
+      <body className="pb-28 lg:pb-0 lg:pl-28">
+        {/* <header className="pb-3 mb-4 border-b-2">
           <Link to="/" className="hover:underline text-blue-600">
             Home
           </Link>
-          <Link to="/books/new" className="ml-3 hover:underline text-blue-600">
-            New book
+          <Link to="/users/new" className="ml-3 hover:underline text-blue-600">
+            New user
           </Link>
-        </header>
+        </header> */}
+        <nav className="w-full lg:h-full lg:w-24 fixed bottom-0 left-0 px-12 py-6 lg:px-6 bg-slate-700">
+          <ul className="flex justify-between lg:flex-col lg:items-center">
+            <li className="lg:my-3">
+              <AiFillHome className="w-8 h-8 text-white" />
+            </li>
+            <li className="lg:my-3">
+              <BsFillBookmarkFill className="w-8 h-8 text-white" />
+            </li>
+            <li className="lg:my-3">
+              <FaUser className="w-8 h-8 text-white" />
+            </li>
+          </ul>
+        </nav>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
