@@ -41,7 +41,7 @@ export default function App() {
               <AiFillHome className="w-8 h-8 text-white" />
             </li>
             <li className="lg:my-3">
-              <BsFillBookmarkFill className="w-8 h-8 text-white" />
+              <BsFillBookmarkFill className="w-8 h-8 text-white " />
             </li>
             <li className="lg:my-3">
               <FaUser className="w-8 h-8 text-white" />
