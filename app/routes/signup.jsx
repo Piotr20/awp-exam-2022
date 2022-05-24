@@ -27,8 +27,13 @@ export async function action({ request }) {
     });
     if (user) {
       session.set("userId", user._id);
-      // TODO: Return a redirect to the home page which sets a cookie that commits the session
-      return null;
+      return redirect("/", {
+        secret: process.env.COOKIE_SECRET,
+        status: 302,
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
     } else {
       return json({ errorMessage: "User couldn't be created" }, { status: 400 });
     }
@@ -44,7 +49,12 @@ export async function action({ request }) {
 
 export async function loader({ request }) {
   // TODO: Check if the session has a userId, and if so; redirect to the homepage
-  return null;
+  const session = await getSession(request.headers.get("Cookie"));
+  if (session.get("userId")) {
+    return redirect("/");
+  } else {
+    return null;
+  }
 }
 
 export default function SignUp() {

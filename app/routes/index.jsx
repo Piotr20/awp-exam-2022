@@ -19,7 +19,7 @@ export default function Index() {
           return (
             <li key={user._id}>
               <Link to={`/users/${user._id}`} className="text-blue-600 hover:underline">
-                {user.title}
+                {user.name}
               </Link>
             </li>
           );
