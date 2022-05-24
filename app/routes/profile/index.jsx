@@ -1,19 +1,9 @@
 import { useLoaderData, useCatch, Form, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
-import { getSession, commitSession } from "~/sessions.server.js";
+import { getSession, destroySession } from "~/sessions.server.js";
 import { createAvatar } from "@dicebear/avatars";
 import * as style from "@dicebear/avatars-male-sprites/dist/";
-
-export async function loader({ request }) {
-  const db = await connectDb();
-  const session = await getSession(request.headers.get("Cookie"));
-
-  const userId = session.get("userId");
-  console.log(userId);
-  const user = await db.models.User.findById(userId);
-  return json(user);
-}
 
 export async function action({ request }) {
   const db = await connectDb();
@@ -21,7 +11,7 @@ export async function action({ request }) {
   const userId = session.get("userId");
 
   try {
-    const user = await db.models.User.findById({ userId }).remove().exec();
+    const user = await db.models.User.findByIdAndDelete({ _id: userId });
     console.log(userId);
     return redirect("/", {
       headers: {
@@ -33,11 +23,21 @@ export async function action({ request }) {
   }
 }
 
+export async function loader({ request }) {
+  const db = await connectDb();
+  const session = await getSession(request.headers.get("Cookie"));
+
+  const userId = session.get("userId");
+  console.log(userId);
+  const user = await db.models.User.findById(userId);
+  return json(user);
+}
+
 export default function ProfilePage() {
   const user = useLoaderData();
 
   let svg = createAvatar(style, {
-    seed: `${user._id}`,
+    seed: `${user?._id}`,
   });
   return (
     <div>
@@ -45,8 +45,8 @@ export default function ProfilePage() {
       <h1 className="text-2xl font-bold mb-4">{user?.name}</h1>
       <h2>{user?.role}</h2>
       <ul className="mb-5">
-        <li className="lg:my-3">{user.bio}</li>
-        <li>{user.createdAt.split("T")[0]}</li>
+        <li className="lg:my-3">{user?.bio}</li>
+        <li>{user?.createdAt.split("T")[0]}</li>
       </ul>
       <Link
         to="/profile/edit"
@@ -54,7 +54,7 @@ export default function ProfilePage() {
       >
         Edit Profile
       </Link>
-      <Form>
+      <Form method="post">
         <button
           type="submit"
           className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
