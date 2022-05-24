@@ -38,13 +38,17 @@ export default function App() {
         <nav className="w-full lg:h-full lg:w-24 fixed bottom-0 left-0 px-12 py-6 lg:px-6 bg-slate-700">
           <ul className="flex justify-between lg:flex-col lg:items-center">
             <li className="lg:my-3">
-              <AiFillHome className="w-8 h-8 text-white" />
+              <Link to="/">
+                <AiFillHome className="w-8 h-8 text-white" />
+              </Link>
             </li>
             <li className="lg:my-3">
               <BsFillBookmarkFill className="w-8 h-8 text-white " />
             </li>
             <li className="lg:my-3">
-              <FaUser className="w-8 h-8 text-white" />
+              <Link to="/profile">
+                <FaUser className="w-8 h-8 text-white" />
+              </Link>
             </li>
           </ul>
         </nav>

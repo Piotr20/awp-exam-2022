@@ -17,7 +17,7 @@ export default function UserPage() {
   const user = useLoaderData();
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">{user.title}</h1>
+      <h1 className="text-2xl font-bold mb-4">{user.name}</h1>
       <code>
         <pre>{JSON.stringify(user, null, 2)}</pre>
       </code>

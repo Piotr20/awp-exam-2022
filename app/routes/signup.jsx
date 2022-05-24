@@ -23,6 +23,7 @@ export async function action({ request }) {
     const user = await db.models.User.create({
       name: form.get("name"),
       role: form.get("role"),
+      email: form.get("email"),
       password: hashedPassword,
     });
     if (user) {
@@ -48,7 +49,6 @@ export async function action({ request }) {
 }
 
 export async function loader({ request }) {
-  // TODO: Check if the session has a userId, and if so; redirect to the homepage
   const session = await getSession(request.headers.get("Cookie"));
   if (session.get("userId")) {
     return redirect("/");

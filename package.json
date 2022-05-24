@@ -12,6 +12,8 @@
     "start": "remix-serve build"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/avatars-male-sprites": "^4.10.2",
     "@react-icons/all-files": "^4.1.0",
     "@remix-run/node": "1.4.3",
     "@remix-run/react": "1.4.3",

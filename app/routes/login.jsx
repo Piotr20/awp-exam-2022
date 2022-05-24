@@ -10,7 +10,7 @@ export async function action({ request }) {
   const form = await request.formData();
 
   const user = await db.models.User.findOne({
-    username: form.get("username").trim(),
+    name: form.get("name").trim(),
   });
 
   let isCorrectPassword = false;
@@ -63,9 +63,9 @@ export default function Login() {
       <Form method="post" className="text-inherit">
         <input
           type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
+          name="name"
+          id="name"
+          placeholder="name"
           className="block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300"
         />
         <input
