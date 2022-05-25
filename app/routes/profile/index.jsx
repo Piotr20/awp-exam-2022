@@ -2,8 +2,7 @@ import { useLoaderData, useCatch, Form, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
 import { getSession, destroySession } from "~/sessions.server.js";
-import { createAvatar } from "@dicebear/avatars";
-import * as style from "@dicebear/avatars-male-sprites/dist/";
+import Avatar from "../../components/avatar";
 
 export async function action({ request }) {
   const db = await connectDb();
@@ -26,22 +25,22 @@ export async function action({ request }) {
 export async function loader({ request }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
-
-  const userId = session.get("userId");
-  console.log(userId);
-  const user = await db.models.User.findById(userId);
-  return json(user);
+  if (session.get("userId")) {
+    const userId = session.get("userId");
+    console.log(userId);
+    const user = await db.models.User.findById(userId);
+    return json(user);
+  } else {
+    return redirect("/");
+  }
 }
 
 export default function ProfilePage() {
   const user = useLoaderData();
 
-  let svg = createAvatar(style, {
-    seed: `${user?._id}`,
-  });
   return (
     <div>
-      <span className="w-12 flex" dangerouslySetInnerHTML={{ __html: svg }}></span>
+      <Avatar seedProp={user?.avatarImage} />
       <h1 className="text-2xl font-bold mb-4">{user?.name}</h1>
       <h2>{user?.role}</h2>
       <ul className="mb-5">
@@ -57,7 +56,7 @@ export default function ProfilePage() {
       <Form method="post">
         <button
           type="submit"
-          className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          className="mt-5 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded"
         >
           Delete Profile
         </button>

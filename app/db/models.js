@@ -40,6 +40,9 @@ const userSchema = new Schema(
     tags: {
       type: String,
     },
+    avatarImage: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

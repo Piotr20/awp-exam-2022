@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useLoaderData, useCatch, Form } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
 import { getSession, commitSession } from "~/sessions.server.js";
 import bcrypt from "bcryptjs";
+import Avatar from "../../components/avatar";
 
 export async function action({ request }) {
   const db = await connectDb();
@@ -17,9 +19,10 @@ export async function action({ request }) {
       email: form.get("email"),
       bio: form.get("bio"),
       tags: form.get("tags"),
+      avatarImage: form.get("avatar"),
       password: hashedPassword,
     });
-    return null;
+    return redirect("/profile");
   } catch (error) {
     return json({ errorMessage: "Profile couldn't be updated" }, { status: 400 });
   }
@@ -29,40 +32,75 @@ export async function loader({ request }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
 
-  const userId = session.get("userId");
-  const user = await db.models.User.findById(userId);
-  return json(user);
+  if (session.get("userId")) {
+    const userId = session.get("userId");
+    const user = await db.models.User.findById(userId);
+    return json(user);
+  } else {
+    return redirect("/");
+  }
 }
 
 export default function EditProfile() {
   const user = useLoaderData();
+  const [avatarSeed, setAvatarSeed] = useState(user?.avatarImage);
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">EDIT PAGE</h1>
+      <Avatar seedProp={avatarSeed} />
+      <button
+        className="mb-5 flex py-2 px-4 bg-custom-black text-custom-white"
+        onClick={async () => {
+          setAvatarSeed(await bcrypt.hash(user?.avatarImage, 10));
+        }}
+      >
+        Generate new avatar
+      </button>
+      <Form className="flex flex-col items-start my-5" method="post">
+        <label htmlFor="avatar">Profile avatar</label>
+        <input type="hidden" className="mb-5" name="avatar" defaultValue={avatarSeed} />
 
-      <Form className="flex flex-col my-5" method="post">
         <label htmlFor="name">Profile name</label>
-        <input className=" mb-5" name="name" placeholder={user?.name}></input>
+        <input type="text" className="mb-5" name="name" defaultValue={user?.name} placeholder={user?.name} />
 
         <label htmlFor="email">Email</label>
-        <input className=" mb-5" name="email" type="email" placeholder={user?.email}></input>
+        <input
+          className=" mb-5"
+          name="email"
+          type="email"
+          defaultValue={user?.email}
+          placeholder={user?.email}
+        />
 
         <label htmlFor="password">Password</label>
-        <input className=" mb-5" name="password" type="password" placeholder={"New password"}></input>
+        <input
+          className=" mb-5"
+          name="password"
+          type="password"
+          defaultValue={user?.password}
+          placeholder={"New password"}
+        ></input>
 
         <label htmlFor="repeatPassword">Repeat password</label>
         <input
           className=" mb-5"
           name="repeatPassword"
           type="password"
+          defaultValue={user?.password}
           placeholder={"Repeat new password"}
         ></input>
 
         <label htmlFor="bio">Bio</label>
-        <input className=" mb-5" name="bio" type="text" placeholder={user?.bio}></input>
+        <input
+          className=" mb-5"
+          name="bio"
+          type="text"
+          defaultValue={user?.bio}
+          placeholder={user?.bio}
+        ></input>
 
         <label htmlFor="name">Tags</label>
-        <input className=" mb-5" name="tags" placeholder={user?.tags}></input>
+        <input className=" mb-5" name="tags" defaultValue={user?.tags} placeholder={user?.tags}></input>
 
         <button type="submit" className="my-3 p-2 border rounded">
           Save
