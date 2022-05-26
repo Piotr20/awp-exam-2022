@@ -2,15 +2,26 @@ import { mongoose } from "mongoose";
 
 const { Schema } = mongoose;
 
-const bookSchema = new Schema(
+const companyPostsSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
       minLength: [3, "That's too short"],
     },
-    // TODO: add a `userId` property of type Schema.Types.ObjectId with a `ref` to the User model:
-    // https://mongoosejs.com/docs/populate.html
+    tags: {
+      type: Array,
+    },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    createdBy: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
@@ -49,9 +60,9 @@ const userSchema = new Schema(
 
 export const models = [
   {
-    name: "Book",
-    schema: bookSchema,
-    collection: "books",
+    name: "CompanyPosts",
+    schema: companyPostsSchema,
+    collection: "companyPosts",
   },
   {
     name: "User",

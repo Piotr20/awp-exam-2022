@@ -55,7 +55,6 @@ export async function loader({ request }) {
 
 export default function App() {
   const user = useLoaderData();
-  console.log(user);
   return (
     <html lang="en">
       <head>
@@ -63,39 +62,31 @@ export default function App() {
         <Links />
       </head>
       <body className="pb-28 lg:pb-0 lg:flex">
-        {/* <header className="pb-3 mb-4 border-b-2">
-          <Link to="/" className="hover:underline text-blue-600">
-            Home
-          </Link>
-          <Link to="/users/new" className="ml-3 hover:underline text-blue-600">
-            New user
-          </Link>
-        </header> */}
-        <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed lg:static bottom-0 left-0 px-12 py-6 lg:px-6 bg-custom-black flex flex-col justify-between">
+        <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed lg:static bottom-0 left-0 px-16 py-6 lg:px-6 bg-custom-black flex flex-col justify-between">
           <ul className="flex justify-between lg:flex-col lg:items-center lg:justify-start">
-            <li className="lg:my-3 w-full">
+            <li className="lg:my-3 lg:w-full">
               <Link className="flex items-center  custom-underline" to="/">
                 <AiFillHome className="w-8 h-8 lg:w-6 lg:h-6 text-white " />
-                <p className="text-white pl-4 text-xl hidden  group-hover:block ">Home</p>
+                <p className="text-white pl-4 text-xl hidden  lg:group-hover:block ">Home</p>
               </Link>
             </li>
-            <li className="lg:my-3 w-full">
+            <li className="lg:my-3 lg:w-full">
               <Link className="flex items-center  custom-underline" to="/">
                 <BsFillBookmarkFill className="w-8 h-8 lg:w-6 lg:h-6 text-white " />
-                <p className="text-white pl-4 text-xl hidden group-hover:block">Saved</p>
+                <p className="text-white pl-4 text-xl hidden lg:group-hover:block">Saved</p>
               </Link>
             </li>
-            <li className="lg:my-3 w-full">
+            <li className="lg:my-3 lg:w-full">
               <Link className="flex items-center  custom-underline" to="/profile">
                 <FaUser className="w-8 h-8 lg:w-6 lg:h-6 text-white" />
-                <p className="text-white pl-4 text-xl hidden group-hover:block">Profile</p>
+                <p className="text-white pl-4 text-xl hidden lg:group-hover:block">Profile</p>
               </Link>
             </li>
             {user?.role === "company" ? (
-              <li className="lg:my-3 w-full justify-self-end ">
+              <li className="lg:my-3 lg:w-full justify-self-end hidden lg:block">
                 <Link className="flex items-center  custom-underline" to="/profile">
                   <AiFillPlusCircle className="w-8 h-8 lg:w-6 lg:h-6 text-white" />
-                  <p className="text-white pl-4 text-xl hidden group-hover:block">Post</p>
+                  <p className="text-white pl-4 text-xl hidden lg:group-hover:block">Post</p>
                 </Link>
               </li>
             ) : (
@@ -106,19 +97,23 @@ export default function App() {
             <div className="hidden lg:block lg:my-3 w-full justify-self-end">
               <Link className="flex items-center  custom-underline" to="/logout">
                 <RiLogoutBoxRFill className="w-8 h-8 lg:w-6 lg:h-6 text-white" />
-                <p className="text-white pl-4 text-xl hidden group-hover:block whitespace-nowrap">Log out</p>
+                <p className="text-white pl-4 text-xl hidden lg:group-hover:block whitespace-nowrap">
+                  Log out
+                </p>
               </Link>
             </div>
           ) : (
             <div className="hidden lg:block lg:my-3 w-full justify-self-end">
               <Link className="flex items-center  custom-underline" to="/login">
                 <RiLoginBoxFill className="w-8 h-8 lg:w-6 lg:h-6 text-white" />
-                <p className="text-white pl-4 text-xl hidden group-hover:block whitespace-nowrap">Log in</p>
+                <p className="text-white pl-4 text-xl hidden lg:group-hover:block whitespace-nowrap">
+                  Log in
+                </p>
               </Link>
             </div>
           )}
         </nav>
-        <nain className="p-4">
+        <nain className=" w-full">
           <Outlet />
         </nain>
 

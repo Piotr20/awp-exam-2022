@@ -15,7 +15,6 @@ export async function action({ request }) {
   const hashedPassword = await bcrypt.hash(form.get("password").trim(), 10);
 
   try {
-    console.log(form.getAll("tags"));
     const user = await db.models.User.findByIdAndUpdate(userId, {
       name: form.get("name"),
       email: form.get("email"),
