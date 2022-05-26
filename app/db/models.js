@@ -38,7 +38,7 @@ const userSchema = new Schema(
       type: String,
     },
     tags: {
-      type: String,
+      type: Array,
     },
     avatarImage: {
       type: String,

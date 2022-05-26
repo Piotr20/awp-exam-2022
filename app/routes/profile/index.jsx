@@ -11,7 +11,7 @@ export async function action({ request }) {
 
   try {
     const user = await db.models.User.findByIdAndDelete({ _id: userId });
-    console.log(userId);
+
     return redirect("/", {
       headers: {
         "Set-Cookie": await destroySession(session),
@@ -27,7 +27,7 @@ export async function loader({ request }) {
   const session = await getSession(request.headers.get("Cookie"));
   if (session.get("userId")) {
     const userId = session.get("userId");
-    console.log(userId);
+
     const user = await db.models.User.findById(userId);
     return json(user);
   } else {

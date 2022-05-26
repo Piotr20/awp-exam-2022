@@ -26,7 +26,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="pb-28 lg:pb-0 lg:pl-28">
+      <body className="pb-28 lg:pb-0 lg:flex">
         {/* <header className="pb-3 mb-4 border-b-2">
           <Link to="/" className="hover:underline text-blue-600">
             Home
@@ -35,24 +35,34 @@ export default function App() {
             New user
           </Link>
         </header> */}
-        <nav className="w-full lg:h-full lg:w-24 fixed bottom-0 left-0 px-12 py-6 lg:px-6 bg-slate-700">
+        <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed lg:static bottom-0 left-0 px-12 py-6 lg:px-6 bg-custom-black">
           <ul className="flex justify-between lg:flex-col lg:items-center">
             <li className="lg:my-3">
-              <Link to="/">
-                <AiFillHome className="w-8 h-8 text-white" />
+              <Link className="flex items-center " to="/">
+                <AiFillHome className="w-8 h-8 text-white " />
+                <p className="text-white pl-2 text-xl hidden opacity-0 transition-all duration-300 group-hover:block group-hover:opacity-100">
+                  Home
+                </p>
               </Link>
             </li>
             <li className="lg:my-3">
-              <BsFillBookmarkFill className="w-8 h-8 text-white " />
+              <Link className="flex items-center" to="/">
+                <BsFillBookmarkFill className="w-8 h-8 text-white " />
+                <p className="text-white pl-2 text-xl hidden group-hover:block">Saved</p>
+              </Link>
             </li>
             <li className="lg:my-3">
-              <Link to="/profile">
+              <Link className="flex" to="/profile">
                 <FaUser className="w-8 h-8 text-white" />
+                <p className="text-white pl-2 text-xl hidden group-hover:block">Profile</p>
               </Link>
             </li>
           </ul>
         </nav>
-        <Outlet />
+        <nain>
+          <Outlet />
+        </nain>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

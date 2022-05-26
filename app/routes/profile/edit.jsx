@@ -5,6 +5,7 @@ import connectDb from "~/db/connectDb.server.js";
 import { getSession, commitSession } from "~/sessions.server.js";
 import bcrypt from "bcryptjs";
 import Avatar from "../../components/avatar";
+import Multiselect from "multiselect-react-dropdown";
 
 export async function action({ request }) {
   const db = await connectDb();
@@ -14,6 +15,7 @@ export async function action({ request }) {
   const hashedPassword = await bcrypt.hash(form.get("password").trim(), 10);
 
   try {
+    console.log(form.getAll("tags"));
     const user = await db.models.User.findByIdAndUpdate(userId, {
       name: form.get("name"),
       email: form.get("email"),
@@ -44,6 +46,23 @@ export async function loader({ request }) {
 export default function EditProfile() {
   const user = useLoaderData();
   const [avatarSeed, setAvatarSeed] = useState(user?.avatarImage);
+  const [tags, setTags] = useState([]);
+  const options = [
+    { label: "Web developer", value: "Web developer" },
+    { label: "UX designer", value: "UX designer" },
+    { label: "UI designer", value: "UI designer" },
+  ];
+  function onSelect(selectedList, selectedItem) {
+    setTags(selectedList);
+    console.log(tags);
+    return tags;
+  }
+
+  function onRemove(selectedList, removedItem) {
+    setTags(selectedList);
+    console.log(tags);
+    return tags;
+  }
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">EDIT PAGE</h1>
@@ -61,11 +80,17 @@ export default function EditProfile() {
         <input type="hidden" className="mb-5" name="avatar" defaultValue={avatarSeed} />
 
         <label htmlFor="name">Profile name</label>
-        <input type="text" className="mb-5" name="name" defaultValue={user?.name} placeholder={user?.name} />
+        <input
+          type="text"
+          className="mb-5 border-2 border-custom-black"
+          name="name"
+          defaultValue={user?.name}
+          placeholder={user?.name}
+        />
 
         <label htmlFor="email">Email</label>
         <input
-          className=" mb-5"
+          className="border-2 border-custom-black mb-5"
           name="email"
           type="email"
           defaultValue={user?.email}
@@ -74,7 +99,7 @@ export default function EditProfile() {
 
         <label htmlFor="password">Password</label>
         <input
-          className=" mb-5"
+          className=" border-2 border-custom-black mb-5"
           name="password"
           type="password"
           defaultValue={user?.password}
@@ -83,7 +108,7 @@ export default function EditProfile() {
 
         <label htmlFor="repeatPassword">Repeat password</label>
         <input
-          className=" mb-5"
+          className=" mb-5  border-2 border-custom-black"
           name="repeatPassword"
           type="password"
           defaultValue={user?.password}
@@ -92,16 +117,21 @@ export default function EditProfile() {
 
         <label htmlFor="bio">Bio</label>
         <input
-          className=" mb-5"
+          className=" mb-5  border-2 border-custom-black"
           name="bio"
           type="text"
           defaultValue={user?.bio}
           placeholder={user?.bio}
         ></input>
 
-        <label htmlFor="name">Tags</label>
-        <input className=" mb-5" name="tags" defaultValue={user?.tags} placeholder={user?.tags}></input>
-
+        <label htmlFor="tags">Tags</label>
+        <Multiselect
+          options={options} // Options to display in the dropdown
+          onSelect={onSelect} // Function will trigger on select event
+          onRemove={onRemove} // Function will trigger on remove event
+          displayValue="value" // Property name to display in the dropdown options
+        />
+        <input type="hidden" name="tags" defaultValue={JSON.stringify(tags)} />
         <button type="submit" className="my-3 p-2 border rounded">
           Save
         </button>
