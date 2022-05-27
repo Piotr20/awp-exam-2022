@@ -1,16 +1,27 @@
+import { useState } from "react";
 import { Form, useActionData } from "@remix-run/react";
 import { redirect, json } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
+import { getSession } from "~/sessions.server.js";
+import { MultiSelect } from "react-multi-select-component";
 
 export async function action({ request }) {
+  const session = await getSession(request.headers.get("Cookie"));
   const form = await request.formData();
+  const userId = session.get("userId");
   const db = await connectDb();
+  const stringifiedTags = form.getAll("tags");
+  let tags = [];
+  for (const stringifiedTag of stringifiedTags) {
+    tags.push(JSON.parse(stringifiedTag));
+  }
   try {
     const newCompanyPost = await db.models.CompanyPosts.create({
       title: form.get("title"),
       imageUrl: form.get("imageUrl"),
       description: form.get("description"),
-      tags: form.get("tags"),
+      tags: tags,
+      createdBy: userId,
     });
     return redirect(`/company/${newCompanyPost._id}`);
   } catch (error) {
@@ -20,8 +31,15 @@ export async function action({ request }) {
 
 export default function CreateCompanyPost() {
   const actionData = useActionData();
+  const [tags, setTags] = useState([]);
+  const options = [
+    { label: "Web developer", value: "Web developer" },
+    { label: "UX designer", value: "UX designer" },
+    { label: "UI designer", value: "UI designer" },
+    { label: "SoMe specialist", value: "SoMe specialist" },
+  ];
   return (
-    <div>
+    <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Create Company Post</h1>
       <Form method="post">
         <label htmlFor="title" className="block font-semibold mb-1">
@@ -75,21 +93,17 @@ export default function CreateCompanyPost() {
             .filter(Boolean)
             .join(" ")}
         />
-        <label htmlFor="tags" className="block font-semibold mb-1">
-          Tags:
-        </label>
-        <input
-          type="text"
-          name="tags"
-          id="tags"
-          placeholder="Tags"
-          defaultValue={actionData?.values.tags}
-          className={[
-            "block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300",
-            actionData?.errors.tags && "border-2 border-red-500",
-          ]
-            .filter(Boolean)
-            .join(" ")}
+        <label htmlFor="tags">Tags</label>
+
+        {tags?.map((tag, key) => {
+          return <input key={key} type="hidden" name="tags" defaultValue={JSON.stringify(tag)} />;
+        })}
+        <MultiSelect
+          className=" w-1/4"
+          options={options}
+          value={tags}
+          onChange={setTags}
+          labelledBy="Select"
         />
         <button
           type="submit"

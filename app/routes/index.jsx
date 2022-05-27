@@ -60,7 +60,6 @@ export default function Index() {
   const transition = useTransition();
   const [profileType, setProfileType] = useState("");
   console.log(allPosts);
-  console.log("transition: ", transition);
   useEffect(() => {
     if (user?.userData?.role === "student") {
       setProfileType("company");
@@ -70,7 +69,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="  w-full h-full flex flex-col">
+    <div className=" w-full h-full lg:h-screen flex flex-col">
       <div className="w-full bg-custom-white text-custom-black shadow-md z-10">
         <h1 className="text-center text-2xl font-bold pt-2">Feed</h1>
 
@@ -150,7 +149,7 @@ export default function Index() {
         )}
       </div>
 
-      <div className="w-full h-full relative bg-custom-white text-custom-black p-4 lg:grid lg:grid-cols-4 lg:gap-8">
+      <div className="w-full h-full relative bg-custom-white text-custom-black p-4 lg: pt-8 lg:grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:gap-8 overflow-y-auto">
         <div
           className={`absolute left-0 top-0 w-full h-full bg-custom-white flex items-center justify-center opacity-80 ${
             transition.state !== "idle" ? "" : "hidden"
@@ -176,7 +175,7 @@ export default function Index() {
         {allPosts
           ? allPosts?.posts?.map((post) => {
               return (
-                <div key={post._id} className="my-8  bg-custom-white shadow-md">
+                <div key={post._id} className="my-8 lg:my-0 bg-custom-white shadow-md">
                   {post?.imageUrl ? (
                     <img className="w-full h-48 object-scale-down" src={post.imageUrl} alt="Post image" />
                   ) : (
@@ -186,24 +185,81 @@ export default function Index() {
                     />
                   )}
                   <div className="p-4">
-                    <span className=" text-xl font-bold">{post?.tags || post?.name}</span>
-                    <h2 className=" text-2xl font-bold">{post?.title || post?.name}</h2>
-                    <p>{post?.bio || post?.description}</p>
+                    <div className="w-full flex flex-wrap items-start min-h-20 max-h-20 overflow-hidden">
+                      {post?.tags.map((tag, key) => {
+                        return (
+                          <span
+                            key={key}
+                            className="font-bold bg-custom-salmon text-custom-white py-1 px-3 rounded-2xl mr-2 mb-2"
+                          >
+                            {tag.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <h2 className="text-2xl font-bold pb-2 min-h-18 max-h-18">{post?.title || post?.name}</h2>
+                    <p
+                      className={`${
+                        post?.bio?.length > 30 || post?.description?.length > 30
+                          ? " text-ellipsis whitespace-nowrap overflow-hidden"
+                          : ""
+                      } text-base min-h-6 max-h-6`}
+                    >
+                      {post?.bio || post?.description}
+                    </p>
+                    <p className="pb-3 pt-1 font-bold opacity-30">{post?.createdAt.split("T")[0]}</p>
+                    <Link
+                      to={`/${post?.createdBy ? `company/${post?._id}` : post._id}`}
+                      className="bg-custom-black text-custom-white py-2 px-4"
+                    >
+                      View profile
+                    </Link>
                   </div>
                 </div>
               );
             })
           : user?.posts.map((post) => {
               return (
-                <div key={post._id} className="p-4 shadow-md my-8 border-2  border-custom-salmon">
+                <div key={post._id} className="my-8 lg:my-0 bg-custom-white shadow-md">
                   {post?.imageUrl ? (
-                    <img src={post.imageUrl} alt="Post image" />
+                    <img className="w-full h-48 object-scale-down" src={post.imageUrl} alt="Post image" />
                   ) : (
-                    <Avatar seedProp={post?.avatarImage} />
+                    <Avatar
+                      seedProp={post?.avatarImage}
+                      className="w-full h-48 object-scale-down justify-center"
+                    />
                   )}
-                  <span className=" text-xl font-bold">{post?.tags || post?.name}</span>
-                  <h2 className=" text-2xl font-bold">{post?.title || post?.name}</h2>
-                  <p>{post?.bio || post?.description}</p>
+                  <div className="p-4">
+                    <div className="w-full flex flex-wrap items-start min-h-20 max-h-20 overflow-hidden">
+                      {post?.tags.map((tag, key) => {
+                        return (
+                          <span
+                            key={key}
+                            className="font-bold bg-custom-salmon text-custom-white py-1 px-3 rounded-2xl mr-2 mb-2"
+                          >
+                            {tag.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <h2 className="text-2xl font-bold pb-2 min-h-18 max-h-18">{post?.title || post?.name}</h2>
+                    <p
+                      className={`${
+                        post?.bio?.length > 30 || post?.description?.length > 30
+                          ? " text-ellipsis whitespace-nowrap overflow-hidden"
+                          : ""
+                      } text-base min-h-6 max-h-6`}
+                    >
+                      {post?.bio || post?.description}
+                    </p>
+                    <p className="pb-3 pt-1 font-bold opacity-30">{post?.createdAt.split("T")[0]}</p>
+                    <Link
+                      to={`/${post?.createdBy ? "company/" + post.cretedBy : post._id}`}
+                      className="bg-custom-black text-custom-white py-2 px-4"
+                    >
+                      View profile
+                    </Link>
+                  </div>
                 </div>
               );
             })}

@@ -5,7 +5,7 @@ import connectDb from "~/db/connectDb.server.js";
 import { getSession, commitSession } from "~/sessions.server.js";
 import bcrypt from "bcryptjs";
 import Avatar from "../../components/avatar";
-import Multiselect from "multiselect-react-dropdown";
+import { MultiSelect } from "react-multi-select-component";
 
 export async function action({ request }) {
   const db = await connectDb();
@@ -15,11 +15,16 @@ export async function action({ request }) {
   const hashedPassword = await bcrypt.hash(form.get("password").trim(), 10);
 
   try {
+    const stringifiedTags = form.getAll("tags");
+    let tags = [];
+    for (const stringifiedTag of stringifiedTags) {
+      tags.push(JSON.parse(stringifiedTag));
+    }
     const user = await db.models.User.findByIdAndUpdate(userId, {
       name: form.get("name"),
       email: form.get("email"),
       bio: form.get("bio"),
-      tags: form.get("tags"),
+      tags: tags,
       avatarImage: form.get("avatar"),
       password: hashedPassword,
     });
@@ -45,25 +50,16 @@ export async function loader({ request }) {
 export default function EditProfile() {
   const user = useLoaderData();
   const [avatarSeed, setAvatarSeed] = useState(user?.avatarImage);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(user?.tags);
   const options = [
     { label: "Web developer", value: "Web developer" },
     { label: "UX designer", value: "UX designer" },
     { label: "UI designer", value: "UI designer" },
+    { label: "SoMe specialist", value: "SoMe specialist" },
   ];
-  function onSelect(selectedList, selectedItem) {
-    setTags(selectedList);
-    console.log(tags);
-    return tags;
-  }
 
-  function onRemove(selectedList, removedItem) {
-    setTags(selectedList);
-    console.log(tags);
-    return tags;
-  }
   return (
-    <div>
+    <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">EDIT PAGE</h1>
       <Avatar seedProp={avatarSeed} className="w-12 h-12" />
       <button
@@ -124,13 +120,18 @@ export default function EditProfile() {
         ></input>
 
         <label htmlFor="tags">Tags</label>
-        <Multiselect
-          options={options} // Options to display in the dropdown
-          onSelect={onSelect} // Function will trigger on select event
-          onRemove={onRemove} // Function will trigger on remove event
-          displayValue="value" // Property name to display in the dropdown options
+
+        {tags?.map((tag, key) => {
+          return <input key={key} type="hidden" name="tags" defaultValue={JSON.stringify(tag)} />;
+        })}
+        <MultiSelect
+          className=" w-1/4"
+          options={options}
+          value={tags}
+          onChange={setTags}
+          labelledBy="Select"
         />
-        <input type="hidden" name="tags" defaultValue={JSON.stringify(tags)} />
+
         <button type="submit" className="my-3 p-2 border rounded">
           Save
         </button>
