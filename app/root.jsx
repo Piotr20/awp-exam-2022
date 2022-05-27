@@ -62,7 +62,7 @@ export default function App() {
         <Links />
       </head>
       <body className="pb-28 lg:pb-0 lg:flex">
-        <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed lg:static bottom-0 left-0 px-16 py-6 lg:px-6 bg-custom-black flex flex-col justify-between">
+        <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed z-50 lg:static bottom-0 left-0 px-16 py-6 lg:px-6 bg-custom-black flex flex-col justify-between">
           <ul className="flex justify-between lg:flex-col lg:items-center lg:justify-start">
             <li className="lg:my-3 lg:w-full">
               <Link className="flex items-center  custom-underline" to="/">
@@ -84,7 +84,7 @@ export default function App() {
             </li>
             {user?.role === "company" ? (
               <li className="lg:my-3 lg:w-full justify-self-end hidden lg:block">
-                <Link className="flex items-center  custom-underline" to="/profile">
+                <Link className="flex items-center  custom-underline" to="/company/new">
                   <AiFillPlusCircle className="w-8 h-8 lg:w-6 lg:h-6 text-white" />
                   <p className="text-white pl-4 text-xl hidden lg:group-hover:block">Post</p>
                 </Link>

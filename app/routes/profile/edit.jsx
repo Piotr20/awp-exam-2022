@@ -65,7 +65,7 @@ export default function EditProfile() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">EDIT PAGE</h1>
-      <Avatar seedProp={avatarSeed} />
+      <Avatar seedProp={avatarSeed} className="w-12 h-12" />
       <button
         className="mb-5 flex py-2 px-4 bg-custom-black text-custom-white"
         onClick={async () => {

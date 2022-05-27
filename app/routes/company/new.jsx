@@ -9,6 +9,8 @@ export async function action({ request }) {
     const newCompanyPost = await db.models.CompanyPosts.create({
       title: form.get("title"),
       imageUrl: form.get("imageUrl"),
+      description: form.get("description"),
+      tags: form.get("tags"),
     });
     return redirect(`/company/${newCompanyPost._id}`);
   } catch (error) {
@@ -49,10 +51,42 @@ export default function CreateCompanyPost() {
           name="imageUrl"
           id="imageUrl"
           placeholder="Image Url"
-          defaultValue={actionData?.values.title}
+          defaultValue={actionData?.values.imageUrl}
           className={[
             "block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300",
-            actionData?.errors.title && "border-2 border-red-500",
+            actionData?.errors.imageUrl && "border-2 border-red-500",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        />
+        <label htmlFor="description" className="block font-semibold mb-1">
+          Description:
+        </label>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          placeholder="description"
+          defaultValue={actionData?.values.description}
+          className={[
+            "block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300",
+            actionData?.errors.description && "border-2 border-red-500",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        />
+        <label htmlFor="tags" className="block font-semibold mb-1">
+          Tags:
+        </label>
+        <input
+          type="text"
+          name="tags"
+          id="tags"
+          placeholder="Tags"
+          defaultValue={actionData?.values.tags}
+          className={[
+            "block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300",
+            actionData?.errors.tags && "border-2 border-red-500",
           ]
             .filter(Boolean)
             .join(" ")}

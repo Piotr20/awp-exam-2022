@@ -37,10 +37,9 @@ export async function loader({ request }) {
 
 export default function ProfilePage() {
   const user = useLoaderData();
-
   return (
     <div>
-      <Avatar seedProp={user?.avatarImage} />
+      <Avatar seedProp={user?.avatarImage} className="w-12 h-12" />
       <h1 className="text-2xl font-bold mb-4">{user?.name}</h1>
       <h2>{user?.role}</h2>
       <ul className="mb-5">
