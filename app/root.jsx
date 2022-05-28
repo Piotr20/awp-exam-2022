@@ -113,9 +113,9 @@ export default function App() {
             </div>
           )}
         </nav>
-        <nain className=" w-full">
+        <main className=" w-full">
           <Outlet />
-        </nain>
+        </main>
 
         <ScrollRestoration />
         <Scripts />
