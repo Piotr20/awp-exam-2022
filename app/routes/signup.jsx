@@ -28,7 +28,7 @@ export async function action({ request }) {
     });
     if (user) {
       session.set("userId", user._id);
-      return redirect("/", {
+      return redirect("/profile", {
         secret: process.env.COOKIE_SECRET,
         status: 302,
         headers: {
@@ -61,46 +61,83 @@ export default function SignUp() {
   const actionData = useActionData();
 
   return (
-    <div className="m-3">
-      <h2>Sign Up</h2>
-      {actionData?.errorMessage ? (
-        <p className="text-red-500 font-bold my-3">{actionData.errorMessage}</p>
-      ) : null}
-      <Form method="post" className="text-inherit">
-        <Input type="text" name="name" id="name" placeholder="Name" />
-        <Input type="email" name="email" id="email" placeholder="Email address" />
-        <Input type="password" name="password" id="password" placeholder="Password" />
-        <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repeat password" />
-        <div className="flex">
-          <div className="flex items-center px-2">
-            <label htmlFor="role">Student</label>
-            <input type="radio" name="role" value="student" defaultChecked className="ml-3" />
+    <div className="p-4 flex items-center justify-center h-screen">
+      <div className="px-4 lg:px-0 w-full lg:w-1/4">
+        <h2 className="text-3xl font-bold text-center mb-4">Sign Up</h2>
+        {actionData?.errorMessage ? (
+          <p className="text-red-500 font-bold my-3">{actionData.errorMessage}</p>
+        ) : null}
+        <Form method="post" className="text-inherit flex flex-col items-center">
+          <label htmlFor="name" className="self-start">
+            Name:
+          </label>
+          <Input type="text" name="name" id="name" placeholder="Name" className="w-full" />
+          <label htmlFor="email" className="self-start">
+            Email:
+          </label>
+          <Input type="email" name="email" id="email" placeholder="Email address" className="w-full" />
+          <label htmlFor="password" className="self-start">
+            Password:
+          </label>
+          <Input type="password" name="password" id="password" placeholder="Password" className="w-full" />
+          <label htmlFor="repeatPassword" className="self-start">
+            Repeat password:
+          </label>
+          <Input
+            type="password"
+            name="repeatPassword"
+            id="repeatPassword"
+            placeholder="Repeat password"
+            className="w-full"
+          />
+          <div className="flex">
+            <div className="flex items-center px-2">
+              <input
+                id="role-student"
+                type="radio"
+                name="role"
+                value="student"
+                defaultChecked
+                className="mr-3 peer"
+              />
+              <label className="peer-checked:font-bold cursor-pointer" htmlFor="role-student">
+                Student
+              </label>
+            </div>
+            <div className="flex items-center px-2">
+              <input
+                id="role-company"
+                type="radio"
+                name="role"
+                value="company"
+                className="mr-3 group-checked:font-bold peer"
+              />
+              <label className=" peer-checked:font-bold cursor-pointer" htmlFor="role-company">
+                Company
+              </label>
+            </div>
           </div>
-          <div className="flex items-center px-2">
-            <label htmlFor="role">Company</label>
-            <input type="radio" name="role" value="company" className="ml-3" />
-          </div>
-        </div>
 
-        <div className="flex flex-row items-center gap-3">
-          <button type="submit" className="my-3 p-2 border rounded">
-            Sign up
-          </button>
-          <span className="italic">or</span>
-          <Link to="/login" className="underline">
-            Log in
-          </Link>
-        </div>
-      </Form>
+          <div className="flex flex-row items-center gap-3">
+            <button type="submit" className="my-3 p-2 px-4 border rounded bg-custom-black text-custom-white">
+              Sign up
+            </button>
+            <span className="italic">or</span>
+            <Link to="/login" className="underline">
+              Log in
+            </Link>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
 
-function Input({ ...rest }) {
+function Input({ className, ...rest }) {
   return (
     <input
       {...rest}
-      className="block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300"
+      className={`${className} block mb-3 mt-1 border rounded px-2 py-1 bg-white border-zinc-300 `}
     />
   );
 }

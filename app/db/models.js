@@ -22,6 +22,24 @@ const companyPostsSchema = new Schema(
     createdBy: {
       type: String,
     },
+    contactPerson: {
+      type: String,
+    },
+    contactEmail: {
+      type: String,
+    },
+    position: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    education: {
+      type: String,
+    },
+    savedBy: {
+      type: Array,
+    },
   },
   { timestamps: true }
 );
@@ -51,8 +69,20 @@ const userSchema = new Schema(
     tags: {
       type: Array,
     },
+    education: {
+      type: String,
+    },
     avatarImage: {
       type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    portfolio: {
+      type: String,
+    },
+    savedBy: {
+      type: Array,
     },
   },
   { timestamps: true }

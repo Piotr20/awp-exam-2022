@@ -61,7 +61,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="pb-28 lg:pb-0 lg:flex">
+      <body className=" lg:flex">
         <nav className="w-full lg:h-screen group lg:w-24 lg:hover:w-48 lg:transition-all lg:duration-300 cursor-pointer fixed z-50 lg:static bottom-0 left-0 px-16 py-6 lg:px-6 bg-custom-black flex flex-col justify-between">
           <ul className="flex justify-between lg:flex-col lg:items-center lg:justify-start">
             <li className="lg:my-3 lg:w-full">

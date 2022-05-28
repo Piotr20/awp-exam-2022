@@ -3,24 +3,14 @@ import { useLoaderData, useCatch, Form, useActionData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
 import { getSession, commitSession } from "~/sessions.server.js";
-import bcrypt from "bcryptjs";
 import Avatar from "../../components/avatar";
 import { MultiSelect } from "react-multi-select-component";
 
-export async function action({ request }) {
+export async function action({ request, params }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
   const form = await request.formData();
   const userId = session.get("userId");
-  const hashedPassword = await bcrypt.hash(form.get("password").trim(), 10);
-
-  if (form.get("password").trim() !== form.get("repeatPassword").trim()) {
-    return json({ errorMessage: "Your passwords are not matching." }, { status: 400 });
-  }
-
-  if (form.get("password").trim()?.length < 8) {
-    return json({ errorMessage: "Your password has to have at least 8 characters" }, { status: 400 });
-  }
 
   try {
     const stringifiedTags = form.getAll("tags");
@@ -28,40 +18,39 @@ export async function action({ request }) {
     for (const stringifiedTag of stringifiedTags) {
       tags.push(JSON.parse(stringifiedTag));
     }
-    const user = await db.models.User.findByIdAndUpdate(userId, {
-      name: form.get("name"),
-      email: form.get("email"),
-      bio: form.get("bio"),
+    const companyPost = await db.models.CompanyPosts.findByIdAndUpdate(params.companyPostId, {
+      title: form.get("title"),
+      contactEmail: form.get("email"),
+      contactPerson: form.get("contactPerson"),
+      description: form.get("description"),
       education: form.get("education"),
       linkedin: form.get("linkedin"),
-      portfolio: form.get("portfolio"),
       tags: tags,
-      avatarImage: form.get("avatar"),
-      password: hashedPassword,
+      imageUrl: form.get("imageUrl"),
+      position: form.get("position"),
     });
-    return redirect("/profile");
+    return redirect(`/company/${companyPost._id}`);
   } catch (error) {
     return json({ errorMessage: "Profile couldn't be updated" }, { status: 400 });
   }
 }
 
-export async function loader({ request }) {
+export async function loader({ request, params }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
 
   if (session.get("userId")) {
     const userId = session.get("userId");
-    const user = await db.models.User.findById(userId);
-    return json(user);
+    const companyPosts = await db.models.CompanyPosts.findById(params.companyPostId);
+    return json(companyPosts);
   } else {
     return redirect("/");
   }
 }
 
-export default function EditProfile() {
-  const actionData = useActionData();
+export default function EditComapnyProfile() {
   const user = useLoaderData();
-  console.log(user);
+  const actionData = useActionData();
   const [avatarSeed, setAvatarSeed] = useState(user?.avatarImage);
   const [tags, setTags] = useState(user?.tags);
   const options = [
@@ -73,68 +62,73 @@ export default function EditProfile() {
 
   return (
     <div className="p-4 lg:h-screen overflow-auto">
-      <h1 className="text-2xl font-bold mb-4 pl-4">EDIT PROFILE PAGE</h1>
       <div className="w-full lg:w-1/3 px-4 pb-20">
-        <Avatar seedProp={avatarSeed} className="w-full" />
-        <button
-          className="mt-2 py-2 px-4 bg-custom-black text-custom-white w-full"
-          onClick={async () => {
-            console.log(avatarSeed);
-            setAvatarSeed(await bcrypt.hash(user?.avatarImage, 10));
-          }}
-        >
-          Generate new avatar
-        </button>
+        <h1 className="text-2xl font-bold mb-4">EDIT POST</h1>
         <Form className="flex flex-col items-start my-5" method="post">
-          <input type="hidden" className="mb-5" name="avatar" defaultValue={avatarSeed} />
-
-          <label htmlFor="name">Profile name</label>
+          <label htmlFor="title">Post title</label>
           <Input
             type="text"
             className="w-full"
-            name="name"
-            defaultValue={user?.name}
-            placeholder={user?.name}
+            name="title"
+            defaultValue={user?.title}
+            placeholder={user?.title}
           />
-
-          <label htmlFor="email">Email</label>
+          <label htmlFor="imageUrl">Post image link</label>
+          <Input
+            type="text"
+            className="w-full"
+            name="imageUrl"
+            defaultValue={user?.imageUrl}
+            placeholder={user?.imageUrl}
+          />
+          <label htmlFor="contactPerson">Contact person</label>
+          <Input
+            className="w-full"
+            name="contactPerson"
+            type="text"
+            defaultValue={user?.contactPerson}
+            placeholder={user?.contactPerson}
+          />
+          <label htmlFor="email">Contact email</label>
           <Input
             className="w-full"
             name="email"
             type="email"
-            defaultValue={user?.email}
-            placeholder={user?.email}
+            defaultValue={user?.contactEmail}
+            placeholder={user?.contactEmail}
           />
-          <label htmlFor="education">Education</label>
+          <label htmlFor="tags">Tags</label>
+          <MultiSelect
+            className="w-full"
+            options={options}
+            value={tags}
+            onChange={setTags}
+            labelledBy="Select"
+          />
+          <label htmlFor="position">Position</label>
+          <Input
+            className="w-full"
+            name="position"
+            type="text"
+            defaultValue={user?.position}
+            placeholder={user?.position}
+          ></Input>
+          <label htmlFor="education">Education required</label>
           <Input
             className="w-full"
             name="education"
             type="text"
             defaultValue={user?.education}
             placeholder={user?.education}
-          />
-
-          <label htmlFor="tags">Tags</label>
-          <MultiSelect
-            className=" w-full"
-            options={options}
-            value={tags}
-            onChange={setTags}
-            labelledBy="Select"
-          />
-
-          <label htmlFor="password">Password</label>
-          <Input className="w-full" name="password" type="password" placeholder={"New password"} />
-          <label htmlFor="repeatPassword">Repeat password</label>
+          ></Input>
+          <label htmlFor="description">Description</label>
           <Input
             className="w-full"
-            name="repeatPassword"
-            type="password"
-            placeholder={"Repeat new password"}
-          />
-
-          <label htmlFor="bio">Bio</label>
-          <Input className="w-full" name="bio" type="text" defaultValue={user?.bio} placeholder={user?.bio} />
+            name="description"
+            type="text"
+            defaultValue={user?.description}
+            placeholder={user?.description}
+          ></Input>
           <label htmlFor="linkedin">Linkedin</label>
           <Input
             className="w-full"
@@ -142,16 +136,7 @@ export default function EditProfile() {
             type="text"
             defaultValue={user?.linkedin}
             placeholder={user?.linkedin}
-          />
-          <label htmlFor="portfolio">Portfolio</label>
-          <Input
-            className="w-full"
-            name="portfolio"
-            type="text"
-            defaultValue={user?.portfolio}
-            placeholder={user?.portfolio}
-          />
-
+          ></Input>
           {tags?.map((tag, key) => {
             return <input key={key} type="hidden" name="tags" defaultValue={JSON.stringify(tag)} />;
           })}
@@ -193,7 +178,7 @@ function Input({ className, ...rest }) {
   return (
     <input
       {...rest}
-      className={`${className} block mb-3 mt-1 border rounded px-2 py-1 bg-white border-zinc-300 `}
+      className={`${className} block mb-3 mt-1 border rounded px-2 py-2 bg-white border-zinc-300 `}
     />
   );
 }

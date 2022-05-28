@@ -10,7 +10,7 @@ export async function action({ request }) {
   const form = await request.formData();
 
   const user = await db.models.User.findOne({
-    name: form.get("name").trim(),
+    email: form.get("email"),
   });
 
   let isCorrectPassword = false;
@@ -44,10 +44,10 @@ export default function Login() {
 
   if (userId) {
     return (
-      <div>
-        <p>You are already logged in as user id {userId}.</p>
+      <div className="p-4">
+        <h2 className="text-2xl font-bold">You are already logged in as user id {userId}.</h2>
         <Form method="post" action="/logout">
-          <button type="submit" className="my-3 p-2 border rounded">
+          <button type="submit" className="my-3 p-2 px-4 border rounded bg-custom-black text-custom-white">
             Logout
           </button>
         </Form>
@@ -55,36 +55,41 @@ export default function Login() {
     );
   }
   return (
-    <div className="m-3">
-      <h2>Log in</h2>
-      {actionData?.errorMessage ? (
-        <p className="text-red-500 font-bold my-3">{actionData.errorMessage}</p>
-      ) : null}
-      <Form method="post" className="text-inherit">
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="name"
-          className="block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          className="block my-3 border rounded px-2 py-1 w-full lg:w-1/2 bg-white border-zinc-300"
-        />
-        <div className="flex flex-row items-center gap-3">
-          <button type="submit" className="my-3 p-2 border rounded">
-            Log in
-          </button>
-          <span className="italic">or</span>
-          <Link to="/signup" className="underline">
-            Sign up
-          </Link>
-        </div>
-      </Form>
+    <div className="p-4 flex flex-col items-center justify-center h-screen ">
+      <div className="px-4 lg:px-0 w-full lg:w-1/4">
+        <h2 className="text-3xl font-bold text-center mb-4">Log in</h2>
+        {actionData?.errorMessage ? (
+          <p className="text-red-500 font-bold my-3">{actionData.errorMessage}</p>
+        ) : null}
+        <Form method="post" className="text-inherit flex flex-col items-center">
+          <label htmlFor="email" className="self-start">
+            Email:
+          </label>
+          <Input type="email" name="email" id="email" placeholder="Email" className="w-full" />
+          <label htmlFor="password" className="self-start">
+            Password:
+          </label>
+          <Input type="password" name="password" id="password" placeholder="Password" className="w-full" />
+          <div className="flex flex-row items-center gap-3">
+            <button type="submit" className="my-3 p-2 px-4 border rounded bg-custom-black text-custom-white">
+              Log in
+            </button>
+            <span className="italic">or</span>
+            <Link to="/signup" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </Form>
+      </div>
     </div>
+  );
+}
+
+function Input({ className, ...rest }) {
+  return (
+    <input
+      {...rest}
+      className={`${className} block mb-3 mt-1 border rounded px-2 py-1 bg-white border-zinc-300 `}
+    />
   );
 }
