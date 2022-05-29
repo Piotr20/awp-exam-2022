@@ -1,12 +1,14 @@
-import { useLoaderData, useCatch, Form, Link } from "@remix-run/react";
+import { useState, useEffect } from "react";
+import { useLoaderData, useActionData, useCatch, Form, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
-import { getSession, destroySession } from "~/sessions.server.js";
-import Avatar from "../../components/avatar";
+import { getSession } from "~/sessions.server.js";
 import { GrLinkedin } from "@react-icons/all-files/gr/GrLinkedin";
 import { MdComputer } from "@react-icons/all-files/md/MdComputer";
 import { AiTwotoneEdit } from "@react-icons/all-files/ai/AiTwotoneEdit";
 import { BsFillTrashFill } from "@react-icons/all-files/bs/BsFillTrashFill";
+import { BsFillBookmarkFill } from "@react-icons/all-files/bs/BsFillBookmarkFill";
+import { BsBookmark } from "@react-icons/all-files/bs/BsBookmark";
 
 export async function action({ request, params }) {
   const db = await connectDb();
@@ -22,7 +24,31 @@ export async function action({ request, params }) {
       return json({ errorMessage: "Profile couldn't be deleted" }, { status: 400 });
     }
   }
-  return null;
+  if (form.get("actionSave") === "savePost") {
+    const savedCheck = form.get("save");
+    const activePostId = form.get("currentPostId");
+    const companyPost = await db.models.CompanyPosts.findById(activePostId);
+    let savedByArray = companyPost?.savedBy;
+
+    for (let i = 0; i < savedByArray.length; i++) {
+      if (savedByArray[i] === userId) {
+        savedByArray.splice(i, 1);
+      }
+    }
+    if (savedCheck === "false") {
+      savedByArray?.push(userId);
+    }
+
+    try {
+      const updatedPost = await db.models.CompanyPosts.findByIdAndUpdate(activePostId, {
+        savedBy: savedByArray,
+      });
+      return json(updatedPost);
+    } catch (error) {
+      return json({ errorMessage: "Profile couldn't be saved" }, { status: 400 });
+    }
+  }
+  return json(updatedPost);
 }
 
 export async function loader({ request, params }) {
@@ -39,7 +65,22 @@ export async function loader({ request, params }) {
 
 export default function CompanyPostDetailPage() {
   const data = useLoaderData();
-  console.log(data);
+  const actionData = useActionData();
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    for (let index = 0; index < data?.companyPost?.savedBy?.length; index++) {
+      const savedById = data?.companyPost?.savedBy[index];
+
+      if (savedById === data?.userId) {
+        setSaved(true);
+      } else {
+        console.log(data);
+        setSaved(false);
+      }
+    }
+  }, [data, actionData]);
+
   return (
     <div className=" lg:h-screen overflow-auto">
       <div className="w-full bg-custom-salmon p-4 flex flex-col items-center relative ">
@@ -48,6 +89,24 @@ export default function CompanyPostDetailPage() {
           <a href={`${data.companyPost.linkedin}`} className="flex items-center text-custom-white font-bold">
             <GrLinkedin className="flex mr-2 w-8 h-8" /> Linkedin
           </a>
+          <Form method="post">
+            <input type="hidden" name="actionSave" defaultValue="savePost" />
+            <input type="hidden" name="save" defaultValue={saved} />
+            <input type="hidden" name="currentPostId" defaultValue={data?.companyPost?._id} />
+            <button type="submit" className="flex items-center text-custom-white cursor-pointer">
+              <BsBookmark
+                className={`${
+                  saved ? "hidden" : "flex"
+                } mr-2 items-center text-custom-white font-bold ml-4 w-8 h-8`}
+              />
+              <BsFillBookmarkFill
+                className={`${
+                  saved ? "flex" : "hidden"
+                } mr-2 items-center text-custom-white font-bold ml-4 w-8 h-8`}
+              />
+              <p className="font-bold">{saved ? "Saved" : "Save"}</p>
+            </button>
+          </Form>
         </div>
         <div
           className={`${

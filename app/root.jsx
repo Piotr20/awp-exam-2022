@@ -9,7 +9,6 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
-
 import styles from "~/tailwind.css";
 import stylesGlobal from "./styles/global.css";
 import { BsFillBookmarkFill } from "@react-icons/all-files/bs/BsFillBookmarkFill";
@@ -71,7 +70,7 @@ export default function App() {
               </Link>
             </li>
             <li className="lg:my-3 lg:w-full">
-              <Link className="flex items-center  custom-underline" to="/">
+              <Link className="flex items-center  custom-underline" to="/saved">
                 <BsFillBookmarkFill className="w-8 h-8 lg:w-6 lg:h-6 text-white " />
                 <p className="text-white pl-4 text-xl hidden lg:group-hover:block">Saved</p>
               </Link>
