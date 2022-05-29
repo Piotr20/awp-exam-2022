@@ -6,7 +6,7 @@ const PostsList = ({ posts }) => {
     <>
       {posts?.map((post) => {
         return (
-          <div key={post._id} className="my-8 lg:my-0 bg-custom-white shadow-md">
+          <div key={post._id} className="my-8 lg:my-0 bg-custom-white shadow-md lg:max-h-[464px]">
             {post?.imageUrl ? (
               <img className="w-full h-48 object-scale-down" src={post.imageUrl} alt="Post image" />
             ) : (

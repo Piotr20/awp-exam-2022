@@ -61,7 +61,6 @@ export async function loader({ request }) {
 export default function EditProfile() {
   const actionData = useActionData();
   const user = useLoaderData();
-  console.log(user);
   const [avatarSeed, setAvatarSeed] = useState(user?.avatarImage);
   const [tags, setTags] = useState(user?.tags);
   const options = [
