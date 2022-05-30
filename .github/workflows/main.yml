@@ -14,5 +14,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # More info: https://github.com/akhileshns/heroku-deploy
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "your-app-name-on-heroku"
-          heroku_email: "your-email-on-heroku"
+          heroku_app_name: "awp-exam-2022-pap"
+          heroku_email: "piotrpospiech00@gmail.com"
