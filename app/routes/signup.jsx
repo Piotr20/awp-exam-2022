@@ -29,7 +29,7 @@ export async function action({ request }) {
     });
     if (user) {
       session.set("userId", user._id);
-      return redirect("/profile", {
+      return redirect("/profile/edit", {
         secret: process.env.COOKIE_SECRET,
         status: 302,
         headers: {

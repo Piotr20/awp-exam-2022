@@ -1,35 +1,149 @@
 [
   {
-    "_id": { "$oid": "62923c82f1fcd15cc3f574c9" },
-    "name": "student",
+    "_id": "6294fb9f094e121ace985964",
+    "name": "Line T. Jepsen",
+    "role": "company",
+    "password": "$2a$10$y582IYHPRcqP.Z8H3WKgYetabOvkLkv2JJfoiGh.Fp38YIlaQDAaC",
+    "email": "LineTJepsen@rhyta.com",
+    "tags": [
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "avatarImage": "$2a$10$OPGxoQGlY0jqz8X0uxdqZuCdBlF.Klved6u6ft07j/WsnK/qTjRkO",
+    "savedBy": [],
+    "createdAt": "1653930911851",
+    "updatedAt": "1653931066670",
+    "__v": "0",
+    "bio": "Adipiscing elit duis tristique sollicitudin nibh sit amet. Suscipit adipiscing bibendum est ultricies integer quis auctor elit. Ipsum dolor sit amet consectetur adipiscing elit. Non nisi est sit amet facilisis magna. Libero justo laoreet sit amet cursus sit amet dictum. Consequat ac felis donec et odio. Porta nibh venenatis cras sed felis eget velit. Fusce id velit ut tortor pretium viverra suspendisse. Congue nisi vitae suscipit tellus mauris. Sit amet commodo nulla facilisi nullam. Ipsum dolor sit amet consectetur adipiscing. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Hendrerit dolor magna eget est lorem.",
+    "education": "VIA University Collage ",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
+  },
+  {
+    "_id": "6294ffce094e121ace9859da",
+    "name": "Søren S. Christiansen",
+    "role": "company",
+    "password": "$2a$10$Hh.XqEVPfME5iEO9x.pOIejM8npoRDrjB3tBb3B.DrtsnMsd.nxqG",
+    "email": "SorenSChristiansen@jourrapide.com",
+    "tags": [
+      { "label": "SoMe specialist", "value": "SoMe specialist" },
+      { "label": "UI designer", "value": "UI designer" },
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "Web developer", "value": "Web developer" }
+    ],
+    "avatarImage": "$2a$10$37gNRb6w6r.IH3YyiNVs3u5I24robh/O9DI.8MWlOEumiip7nNtK.",
+    "savedBy": [],
+    "createdAt": "1653931982241",
+    "updatedAt": "1653932042049",
+    "__v": "0",
+    "bio": "Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum id venenatis a condimentum vitae sapien pellentesque. At ultrices mi tempus imperdiet nulla. Proin fermentum leo vel orci porta non pulvinar neque. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Sed turpis tincidunt id aliquet. Urna condimentum mattis pellentesque id nibh tortor. Consequat nisl vel pretium lectus quam id leo in vitae. Sociis natoque penatibus et magnis dis parturient montes.",
+    "education": "Aarhus Universität",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
+  },
+  {
+    "_id": "629503af094e121ace985a22",
+    "name": "Lasse O. Jørgensen",
+    "role": "company",
+    "password": "$2a$10$OSp6/Gve6KcYtMmj/qVgWO4800.Jxf1UTjItA34gWTF2EpCFw46my",
+    "email": "LasseOJorgensen@armyspy.com",
+    "tags": [
+      { "label": "Web developer", "value": "Web developer" },
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "avatarImage": "$2a$10$RC9DmW6tKNew0T/B9.JLheXjITQfjdKBTfeQYNhTub9Iqzdh.jJSa",
+    "savedBy": [],
+    "createdAt": "1653932975708",
+    "updatedAt": "1653933017041",
+    "__v": "0",
+    "bio": "Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum id venenatis a condimentum vitae sapien pellentesque. At ultrices mi tempus imperdiet nulla. Proin fermentum leo vel orci porta non pulvinar neque. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Sed turpis tincidunt id aliquet. Urna condimentum mattis pellentesque id nibh tortor. Consequat nisl vel pretium lectus quam id leo in vitae. Sociis natoque penatibus et magnis dis parturient montes.",
+    "education": "Aarhus Universität",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
+  },
+  {
+    "_id": "6295057a094e121ace985a48",
+    "name": "Piotr Andrzej Pospiech",
     "role": "student",
-    "password": "$2a$10$a8rdUu6Bh/nEgEZhLbaCoOnlR90P6zlEMIylHFsTCno/vBLtVcxeq",
+    "password": "$2a$10$lm1ZpM5EQv5ntQ7E2LrU3ejyPj8jqj.vCTxQve58VRs9Sjx1GXDay",
     "email": "piotrpospiech00@gmail.com",
     "tags": [
       { "label": "Web developer", "value": "Web developer" },
+      { "label": "UX designer", "value": "UX designer" },
       { "label": "UI designer", "value": "UI designer" }
     ],
-    "createdAt": { "$date": { "$numberLong": "1653750914704" } },
-    "updatedAt": { "$date": { "$numberLong": "1653922112160" } },
-    "__v": { "$numberInt": "0" },
-    "avatarImage": "$2a$10$TGq26lCoiYcQcw9ODoi3mej0CNLErL8W208rg2gr5ofGTbNELzhq2",
-    "bio": "My bio is amazing OMG",
+    "avatarImage": "$2a$10$85xuoaz1oKVD84fzp8vnQu8MyXPW8Q0VUyGtEpbICuW2JjDdqxEii",
+    "savedBy": ["6294fb9f094e121ace985964", "6294ffce094e121ace9859da", "629503af094e121ace985a22"],
+    "createdAt": "1653933434843",
+    "updatedAt": "1653935019657",
+    "__v": "0",
+    "bio": "Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum id venenatis a condimentum vitae sapien pellentesque. At ultrices mi tempus imperdiet nulla. Proin fermentum leo vel orci porta non pulvinar neque. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Sed turpis tincidunt id aliquet. Urna condimentum mattis pellentesque id nibh tortor. Consequat nisl vel pretium lectus quam id leo in vitae. Sociis natoque penatibus et magnis dis parturient montes.",
     "education": "Business Academy Aarhus",
     "linkedin": "https://dk.linkedin.com/",
-    "portfolio": "https://piotrpospiech.com/",
-    "savedBy": ["something", "629239e0f1fcd15cc3f5746e"]
+    "portfolio": "https://piotrpospiech.com/"
   },
   {
-    "_id": { "$oid": "629498910b75b94f253e2bb2" },
-    "name": "Ida Skjodt",
+    "_id": "6295075e094e121ace985aa7",
+    "name": "Mads L. Eriksen",
     "role": "student",
-    "password": "$2a$10$TQBqpKo87fbulcCvRHTR9OIkqfWhdCiepGhMX.Af2oZhoWLZuXd3e",
-    "email": "ida.skjodt@gmail.com",
-    "tags": [],
-    "avatarImage": "default",
+    "password": "$2a$10$Z2lk5cP5oTuMql/dK70YN.d.uGGfrKd.vPmR7ZHUq1ORu6Q6n1iky",
+    "email": "MadsLEriksen@jourrapide.com",
+    "tags": [
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "avatarImage": "$2a$10$EVCseMQWmNKczUO/HxBTY.gCsAG2.aQX/wfV0WdBvnSb4FYP6ekD.",
+    "savedBy": ["6294ffce094e121ace9859da", "629503af094e121ace985a22"],
+    "createdAt": "1653933918017",
+    "updatedAt": "1653935025281",
+    "__v": "0",
+    "bio": "Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum id venenatis a condimentum vitae sapien pellentesque. At ultrices mi tempus imperdiet nulla. Proin fermentum leo vel orci porta non pulvinar neque. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Sed turpis tincidunt id aliquet. Urna condimentum mattis pellentesque id nibh tortor. Consequat nisl vel pretium lectus quam id leo in vitae. Sociis natoque penatibus et magnis dis parturient montes.",
+    "education": "VIA University Collage ",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
+  },
+  {
+    "_id": "62950824094e121ace985aeb",
+    "name": "Johanne M. Hedegaard",
+    "role": "student",
+    "password": "$2a$10$dVpT4Nr667w93hKUhtI1luSNEKown.Qw6ASQ5iK7YasRFZxxKpZdu",
+    "email": "JohanneMHedegaard@jourrapide.com",
+    "tags": [
+      { "label": "Web developer", "value": "Web developer" },
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" },
+      { "label": "SoMe specialist", "value": "SoMe specialist" }
+    ],
+    "avatarImage": "$2a$10$0PVmMmcaXE0e5SY8X6Cu7OMiRbebguqtCthUaog/Krz0qV00ZAORK",
     "savedBy": [],
-    "createdAt": { "$date": { "$numberLong": "1653905553182" } },
-    "updatedAt": { "$date": { "$numberLong": "1653915539631" } },
-    "__v": { "$numberInt": "0" }
+    "createdAt": "1653934116241",
+    "updatedAt": "1653934834766",
+    "__v": "0",
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "education": "Aarhus Universität",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
+  },
+  {
+    "_id": "629508f8094e121ace985b4f",
+    "name": "Mads S. Lauritsen",
+    "role": "student",
+    "password": "$2a$10$O4.T0K0P/4ptkH6SyGgx0.6hzkd/aY6OzOZBEtW3xVJ2DN9W1Ze8S",
+    "email": "MadsSLauritsen@jourrapide.com",
+    "tags": [
+      { "label": "Web developer", "value": "Web developer" },
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "avatarImage": "$2a$10$wrrpYm0te1nnGxUpcS2/0ebh7el6Xx9r2SCkJbqkJ5Jxryb7CFMWO",
+    "savedBy": ["629503af094e121ace985a22", "6294fb9f094e121ace985964"],
+    "createdAt": "1653934328305",
+    "updatedAt": "1653934838389",
+    "__v": "0",
+    "bio": "Est ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Condimentum id venenatis a condimentum vitae sapien pellentesque. At ultrices mi tempus imperdiet nulla. Proin fermentum leo vel orci porta non pulvinar neque. Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum. Sed turpis tincidunt id aliquet. Urna condimentum mattis pellentesque id nibh tortor. Consequat nisl vel pretium lectus quam id leo in vitae. Sociis natoque penatibus et magnis dis parturient montes.",
+    "education": "Aarhus Universität",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/"
   }
 ]

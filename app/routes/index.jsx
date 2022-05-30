@@ -45,17 +45,18 @@ export async function loader({ request }) {
   if (session.get("userId")) {
     const userId = session.get("userId");
     const user = await db.models.User.findById(userId);
-    if (user.role === "student") {
+    if (user?.role === "student") {
       const companyPosts = await db.models.CompanyPosts.find();
       return json({ userData: user, posts: companyPosts });
     }
-    if (user.role === "company") {
+    if (user?.role === "company") {
       const users = await db.models.User.find({ role: "student" });
       return json({ userData: user, posts: users });
     }
   } else {
     return null;
   }
+  return null;
 }
 
 export default function Index() {

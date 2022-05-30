@@ -35,7 +35,7 @@ export async function loader({ request }) {
   if (session.get("userId")) {
     const userId = session.get("userId");
     const user = await db.models.User.findById(userId);
-    if (user.role === "student") {
+    if (user?.role === "student") {
       const companyPosts = await db.models.CompanyPosts.find();
       let savedByCurrentUser = [];
       for (const post of companyPosts) {
@@ -49,7 +49,7 @@ export async function loader({ request }) {
 
       return json({ userData: user, posts: savedByCurrentUser });
     }
-    if (user.role === "company") {
+    if (user?.role === "company") {
       const users = await db.models.User.find({ role: "student" });
       let savedByCurrentUser = [];
       for (const post of users) {
@@ -65,6 +65,7 @@ export async function loader({ request }) {
   } else {
     return redirect("/");
   }
+  return null;
 }
 
 export default function SavedProfiles() {
@@ -80,11 +81,11 @@ export default function SavedProfiles() {
     { label: "UI designer", value: "UI designer" },
     { label: "SoMe specialist", value: "SoMe specialist" },
   ];
-  console.log(loaderData);
+  console.log(loaderData.posts.length);
 
   return (
     <div className="lg:h-screen overflow-auto bg-custom-white">
-      <div className={`${loaderData.posts ? "" : "hidden"} p-4 bg-custom-white`}>
+      <div className={`${loaderData?.posts ? "" : "hidden"} p-4 bg-custom-white`}>
         <div className=" relative lg:float-left">
           <input
             type="text"
@@ -109,7 +110,11 @@ export default function SavedProfiles() {
       </div>
       <div className="w-full h-full relative bg-custom-white text-custom-black p-4 lg:pt-12 pb-16 sm:pb-24 lg:pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 sm:gap-6 md:gap-8">
         <LoadingCover remixTransition={transition} />
-        <p className={`${loaderData ? "hidden" : ""}  w-full p-4 bg-custom-white`}>
+        <p
+          className={`${
+            loaderData?.posts?.length > 0 ? "hidden" : ""
+          }  w-full p-4 bg-custom-white -mt-8 h-screen`}
+        >
           It looks like you don't have any posts saved yet.
         </p>
         <PostsList

@@ -140,7 +140,7 @@ export default function ProfilePage() {
                     />
                   )}
                   <div className="p-4 pt-0">
-                    <h2 className="text-2xl font-bold pb-2 min-h-10 max-h-10 group-hover:underline">
+                    <h2 className="text-2xl font-bold pb-2 min-h-10 max-h-10 group-hover:underline whitespace-nowrap text-ellipsis overflow-hidden">
                       {post?.title}
                     </h2>
 

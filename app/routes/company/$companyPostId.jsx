@@ -95,7 +95,12 @@ export default function CompanyPostDetailPage() {
             <input type="hidden" name="actionSave" defaultValue="savePost" />
             <input type="hidden" name="save" defaultValue={saved} />
             <input type="hidden" name="currentPostId" defaultValue={data?.companyPost?._id} />
-            <button type="submit" className="flex items-center text-custom-white cursor-pointer">
+            <button
+              type="submit"
+              className={` items-center text-custom-white cursor-pointer ${
+                data.companyPost.createdBy === data.userId ? "hidden" : "flex"
+              }`}
+            >
               <BsBookmark
                 className={`${
                   saved ? "hidden" : "flex"
