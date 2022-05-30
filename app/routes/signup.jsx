@@ -24,6 +24,7 @@ export async function action({ request }) {
       name: form.get("name"),
       role: form.get("role"),
       email: form.get("email"),
+      avatarImage: "default",
       password: hashedPassword,
     });
     if (user) {

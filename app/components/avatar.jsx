@@ -3,7 +3,7 @@ import * as style from "@dicebear/avatars-male-sprites/dist/";
 
 const Avatar = ({ seedProp, className }) => {
   let svg = createAvatar(style, {
-    seed: seedProp ? seedProp : "default",
+    seed: seedProp,
   });
   return <span className={`flex ${className}`} dangerouslySetInnerHTML={{ __html: svg }}></span>;
 };

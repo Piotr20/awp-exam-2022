@@ -69,6 +69,9 @@ export default function EditProfile() {
     { label: "UI designer", value: "UI designer" },
     { label: "SoMe specialist", value: "SoMe specialist" },
   ];
+  console.log("seed", avatarSeed);
+  console.log("user", user);
+  console.log("action", actionData);
 
   return (
     <div className="p-4 lg:h-screen overflow-auto">

@@ -26,7 +26,6 @@ export async function action({ request }) {
     }
   }
 
-  console.log(savedByArray);
   if (savedCheck === "false") {
     savedByArray?.push(userId);
   }
@@ -56,8 +55,6 @@ export default function CompanyPostDetailPage() {
   const actionData = useActionData();
   const user = loaderData.user;
   const [saved, setSaved] = useState(false);
-  console.log(loaderData.user);
-  console.log(actionData);
 
   useEffect(() => {
     for (let index = 0; index < user.savedBy.length; index++) {

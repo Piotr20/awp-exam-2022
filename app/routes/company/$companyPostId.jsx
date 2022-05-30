@@ -48,16 +48,14 @@ export async function action({ request, params }) {
       return json({ errorMessage: "Profile couldn't be saved" }, { status: 400 });
     }
   }
-  return json(updatedPost);
 }
 
 export async function loader({ request, params }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
   if (session.get("userId")) {
-    const userId = session.get("userId");
     const companyPost = await db.models.CompanyPosts.findById(params.companyPostId);
-    return json({ companyPost: companyPost, userId: userId });
+    return json({ companyPost: companyPost, userId: session.get("userId") });
   } else {
     return redirect("/");
   }
@@ -71,11 +69,13 @@ export default function CompanyPostDetailPage() {
   useEffect(() => {
     for (let index = 0; index < data?.companyPost?.savedBy?.length; index++) {
       const savedById = data?.companyPost?.savedBy[index];
+      console.log(savedById);
 
       if (savedById === data?.userId) {
+        console.log("if");
         setSaved(true);
       } else {
-        console.log(data);
+        console.log("else");
         setSaved(false);
       }
     }

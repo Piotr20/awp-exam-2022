@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData, useCatch, Form, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server.js";
@@ -7,7 +8,7 @@ import { GrLinkedin } from "@react-icons/all-files/gr/GrLinkedin";
 import { MdComputer } from "@react-icons/all-files/md/MdComputer";
 import { AiTwotoneEdit } from "@react-icons/all-files/ai/AiTwotoneEdit";
 import { BsFillTrashFill } from "@react-icons/all-files/bs/BsFillTrashFill";
-
+import { BsFillBookmarkFill } from "@react-icons/all-files/bs/BsFillBookmarkFill";
 export async function action({ request }) {
   const db = await connectDb();
   const session = await getSession(request.headers.get("Cookie"));
@@ -42,8 +43,8 @@ export async function loader({ request }) {
 
 export default function ProfilePage() {
   const data = useLoaderData();
+  const [saved, setSaved] = useState(data?.user?.savedBy?.length);
 
-  console.log(data);
   return (
     <div className=" lg:h-screen overflow-auto">
       <div className="w-full bg-custom-salmon p-4 flex flex-col items-center relative ">
@@ -55,6 +56,14 @@ export default function ProfilePage() {
           <a href={`${data?.user?.portfolio}`} className="flex items-center text-custom-white font-bold ml-4">
             <MdComputer className="flex mr-2 w-8 h-8" /> Portfolio
           </a>
+          <span className="flex items-center text-custom-white cursor-pointer">
+            <BsFillBookmarkFill
+              className={`${
+                saved > 0 ? "flex" : "hidden"
+              } mr-2 items-center text-custom-white font-bold ml-4 w-8 h-8`}
+            />
+            <p className="font-bold">{saved > 0 ? `Saved by: ${saved}` : ""}</p>
+          </span>
         </div>
         <div className="flex items-center absolute right-2 top-2">
           <Link

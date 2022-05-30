@@ -108,11 +108,11 @@ export default function Index() {
           labelledBy="Select"
         />
       </div>
-      <p className={`${allPosts || user !== null ? "hidden" : ""}  w-full p-4`}>
+      <p className={`${allPosts || user !== null ? "hidden" : ""}  w-full p-4 bg-custom-white`}>
         Welcome to our internship posting portal😊. <br /> Feel free to explore it and find your either dream
         internship or perfect inernship/student job candidate.
       </p>
-      <div className="w-full h-full relative bg-custom-white text-custom-black p-4 lg:grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:gap-8 overflow-y-auto">
+      <div className="w-full h-full relative bg-custom-white text-custom-black p-4 pb-16 sm:pb-24 lg:pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 sm:gap-6 md:gap-8 overflow-y-auto">
         <LoadingCover remixTransition={transition} />
         <PostsList
           posts={posts
