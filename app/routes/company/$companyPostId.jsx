@@ -65,6 +65,8 @@ export default function CompanyPostDetailPage() {
   const data = useLoaderData();
   const actionData = useActionData();
   const [saved, setSaved] = useState(false);
+  // * for a unknown reason state is not dynamicaly being updated when unsaving it
+  // * it is working when saving a candidate profile but not here, but works when you unsave and refresh
 
   useEffect(() => {
     for (let index = 0; index < data?.companyPost?.savedBy?.length; index++) {

@@ -1,0 +1,35 @@
+[
+  {
+    "_id": { "$oid": "62923c82f1fcd15cc3f574c9" },
+    "name": "student",
+    "role": "student",
+    "password": "$2a$10$a8rdUu6Bh/nEgEZhLbaCoOnlR90P6zlEMIylHFsTCno/vBLtVcxeq",
+    "email": "piotrpospiech00@gmail.com",
+    "tags": [
+      { "label": "Web developer", "value": "Web developer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "createdAt": { "$date": { "$numberLong": "1653750914704" } },
+    "updatedAt": { "$date": { "$numberLong": "1653922112160" } },
+    "__v": { "$numberInt": "0" },
+    "avatarImage": "$2a$10$TGq26lCoiYcQcw9ODoi3mej0CNLErL8W208rg2gr5ofGTbNELzhq2",
+    "bio": "My bio is amazing OMG",
+    "education": "Business Academy Aarhus",
+    "linkedin": "https://dk.linkedin.com/",
+    "portfolio": "https://piotrpospiech.com/",
+    "savedBy": ["something", "629239e0f1fcd15cc3f5746e"]
+  },
+  {
+    "_id": { "$oid": "629498910b75b94f253e2bb2" },
+    "name": "Ida Skjodt",
+    "role": "student",
+    "password": "$2a$10$TQBqpKo87fbulcCvRHTR9OIkqfWhdCiepGhMX.Af2oZhoWLZuXd3e",
+    "email": "ida.skjodt@gmail.com",
+    "tags": [],
+    "avatarImage": "default",
+    "savedBy": [],
+    "createdAt": { "$date": { "$numberLong": "1653905553182" } },
+    "updatedAt": { "$date": { "$numberLong": "1653915539631" } },
+    "__v": { "$numberInt": "0" }
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "_id": { "$oid": "6292496bf1fcd15cc3f5752b" },
+    "title": "Random post 5",
+    "tags": [
+      { "label": "UX designer", "value": "UX designer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "imageUrl": "https://duckwise.dk/static/seo-image-c035377243b308e454f381c3dd170e34.jpg",
+    "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, magni! Necessitatibus blanditiis tempore ea vel quam consequuntur repellat quidem vitae.",
+    "createdBy": "629239e0f1fcd15cc3f5746e",
+    "savedBy": ["629498910b75b94f253e2bb2"],
+    "createdAt": { "$date": { "$numberLong": "1653754219769" } },
+    "updatedAt": { "$date": { "$numberLong": "1653914578283" } },
+    "__v": { "$numberInt": "0" },
+    "contactEmail": "alex.hanghiuc@gmail.com",
+    "contactPerson": "Anders Balsev",
+    "position": "UX designer",
+    "education": "Web development or similar",
+    "linkedin": "https://dk.linkedin.com/"
+  },
+  {
+    "_id": { "$oid": "62928d28f1fcd15cc3f57740" },
+    "title": "Legit Post 1",
+    "tags": [
+      { "label": "Web developer", "value": "Web developer" },
+      { "label": "UI designer", "value": "UI designer" }
+    ],
+    "imageUrl": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png",
+    "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, magni! Necessitatibus blanditiis tempore ea vel quam consequuntur repellat quidem vitae.",
+    "createdBy": "629239e0f1fcd15cc3f5746e",
+    "contactPerson": "Piotr Pospiech",
+    "contactEmail": "ida.skjodt@gmail.com",
+    "position": "Intern",
+    "linkedin": "https://dk.linkedin.com/",
+    "education": "Higher education min. 3 years ",
+    "savedBy": [],
+    "createdAt": { "$date": { "$numberLong": "1653771560157" } },
+    "updatedAt": { "$date": { "$numberLong": "1653914588197" } },
+    "__v": { "$numberInt": "0" }
+  }
+]
